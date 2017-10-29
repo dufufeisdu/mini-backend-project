@@ -47,9 +47,29 @@ def show_detail(itemname):
         return render_template('itemDetail.html', description=description)
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def show_login():
-    return render_template('login.html')
+    if request.method == 'GET':
+        return render_template('login.html')
+    if request.method == 'POST':
+        username = request.form.get('username', None)
+        password = request.form.get('password', None)
+        admins = session.query(User).filter_by(title='Admin').all()
+        all_admin_name = list(map(lambda x: x.username, admins))
+
+        if username in all_admin_name:
+            user = session.query(User).\
+                filter_by(title='Admin').\
+                filter_by(username=username).\
+                one()
+            if user.verify_password(password):
+                login_session['username'] = username
+                return redirect('/')
+
+        response = make_response(json.dumps(
+            'Invalid username or password.'), 200)
+        response.headers['Content-Type'] = 'application/json'
+        return response
 
 
 @app.route('/logout')

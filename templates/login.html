@@ -1,13 +1,13 @@
 {% extends "main.html" %} {% block content %}
 <div>
-	<form action="">
-		<label for="">username
+	<form id="loginForm" method="post" action="#">
+		<label for="loginForm">username
 
-			<input type="text">
+			<input name="username" type="text">
 		</label>
 
 		<label for="">Password
-			<input type="password">
+			<input name="password" type="password">
 		</label>
 		<input type="submit" value="submit">
 	</form>
