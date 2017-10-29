@@ -7,7 +7,7 @@
 		{% endfor %}
 	</ol>
 	<a href="{{url_for('show_detail',itemname=item[0])}}">Detail</a> {% if is_logged_in %}
-	<a href="">Edit</a>
-	<a href="">Delete</a>{% endif %}
+	<a href="{{url_for('show_edit',itemname=item[0])}}">Edit</a>
+	<a href="{{url_for('delete',itemname=item[0])}}">Delete</a>{% endif %}
 </div>
 {% endfor %} {% include "createNew.html" %} {% endblock %}

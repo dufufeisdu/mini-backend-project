@@ -78,6 +78,34 @@ def show_logout():
     return redirect('/')
 
 
+@app.route('/<itemname>/edit', methods=['GET', 'POST'])
+def show_edit(itemname):
+    if is_login():
+        if request.method == 'GET':
+            item = session.query(Item).filter_by(name=itemname).one()
+            return render_template('edit.html', name=item.name,
+                                   description=item.description, category=item.category, address=item.address)
+        if request.method == 'POST':
+            item = session.query(Item).filter_by(name=itemname).one()
+            item.name = request.form.get('name', None)
+            item.address = request.form.get('address', None)
+            item.category = request.form.get('category', None)
+            item.description = request.form.get('description', None)
+            session.add(item)
+            session.commit()
+            return redirect('/')
+    response = make_response(json.dumps(
+        'You must login first'), 200)
+    response.headers['Content-Type'] = 'application/json'
+    return response
+
+
+@app.route('/<itemname>/delete')
+def delete(itemname):
+
+    return redirect('/')
+
+
 if __name__ == '__main__':
     app.secret_key = '\x1a\xbeZ\xb7g\x1f\x00\xfe\x1a|s\x13y\xd8r)(E\x88\xa4go(\xc1'
     app.debug = True
