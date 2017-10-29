@@ -47,12 +47,12 @@ def show_detail(itemname):
         return render_template('itemDetail.html', description=description)
 
 
-@app.route('/')
+@app.route('/login')
 def show_login():
     return render_template('login.html')
 
 
-@app.route('/')
+@app.route('/logout')
 def show_logout():
     del login_session['username']
     return redirect('/')
