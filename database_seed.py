@@ -17,11 +17,6 @@ def seeding():
     session.add(admin)
     session.commit()
 
-    # add item1:
-    # name = Column(String(250))
-    # address = Column(String(250))
-    # category = Column(String(250))
-    # description = Column(String(1250))
     item1 = Item(name='newyear', category='Chinese', address='China,TaiWan',
                  description='This is a tradition when new year comes in China')
     session.add(item1)
