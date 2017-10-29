@@ -29,13 +29,22 @@ def is_login():
 
 
 @app.route('/')
-def showCategory():
+def show_category():
     items = session.query(Item).all()
-    description = map(lambda x: x.description, items)
     items = map(lambda x: [x.name, x.address,
                            x.category], items)
 
-    return render_template('entry.html', items=items, description=description, is_logged_in=is_login())
+    return render_template('entry.html', items=items, is_logged_in=is_login())
+
+
+@app.route('/<itemname>/details')
+def show_detail(itemname):
+    items = session.query(Item).all()
+    item_names = list(map(lambda x: x.name, items))
+    if itemname in item_names:
+        item_descriptions = list(map(lambda x: x.description, items))
+        description = item_descriptions[item_names.index(itemname)]
+        return render_template('itemDetail.html', description=description)
 
 
 @app.route('/')
