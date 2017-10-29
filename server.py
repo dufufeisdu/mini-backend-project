@@ -2,7 +2,7 @@
 import json
 import os
 import requests
-
+from init_database import Base, User, Item
 from flask import Flask, render_template, request, redirect, jsonify, url_for, flash, g, make_response
 from flask import session as login_session
 
@@ -19,6 +19,10 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+
+def is_login():
+
 
 if __name__ == '__main__':
     app.secret_key = '\x1a\xbeZ\xb7g\x1f\x00\xfe\x1a|s\x13y\xd8r)(E\x88\xa4go(\xc1'
